@@ -1,15 +1,18 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Page from '../components/Page.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
+import Page from '../components/Page.vue';
+import HelloWorld from '../components/HelloWorld.vue';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
+  { path: '/', redirect: '/home' },
+  { path: '/home', component: Home },
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'HelloWorld',
+    component: HelloWorld
   },
   {
     path: '/about',
@@ -24,8 +27,8 @@ const routes = [
     name: 'Page',
     component: Page
   }
-]
+];
 
-const router = new VueRouter({ routes })
+const router = new VueRouter({ routes });
 
-export default router
+export default router;
