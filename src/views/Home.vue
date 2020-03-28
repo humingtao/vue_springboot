@@ -5,6 +5,7 @@
       <div>
         <span>人员管理系统</span>
       </div>
+      <span>当前登录账户：{{username}}</span>
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
     <!-- 页面主体区域 -->
@@ -63,7 +64,8 @@ export default {
       // 是否折叠
       isCollapse: false,
       // 被激活的链接地址
-      activePath: ''
+      activePath: '',
+      username: ''
     };
   },
   created () {
@@ -72,6 +74,9 @@ export default {
   methods: {
     // 获取所有的菜单
     async getMenuList () {
+      const user = window.sessionStorage.getItem('user');
+      this.username = user;
+      // console.log(user);
       const { data: res } = await this.$http.get('/menu/menu');
       console.log(res);
       if (res.code !== 200) return this.$message.error(res.msg);
