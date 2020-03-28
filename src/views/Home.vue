@@ -1,43 +1,97 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" class="imgS">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <router-link to="/page">
-      <div class="btns">
-        <el-button type="primary">页面</el-button>
-        <el-button type="primary">主要按钮</el-button>
+  <el-container class="home-container">
+    <!-- 头部区域 -->
+    <el-header>
+      <div>
+        <span>人员管理系统</span>
       </div>
-    </router-link>
-  </div>
-</template>
+      <el-button type="info" @click="logout">退出</el-button>
+    </el-header>
+    <!-- 页面主体区域 -->
+    <el-container>
+      <!-- 侧边栏 -->
+      <el-aside :width="isCollapse ? '64px' : '200px'">
+        <div class="toggle-button" @click="toggleCollapse">|||</div>
+        <!-- 侧边栏菜单区域 -->
+        <el-menu background-color="#333744" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
+          <!-- 一级菜单 -->
+          <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
+            <!-- 一级菜单的模板区域 -->
+            <template slot="title">
+              <!-- 图标 -->
+              <i :class="iconsObj[item.id]"></i>
+              <!-- <i class="el-icon-user"></i> -->
+              <!-- 文本 -->
+              <span>{{item.authName}}</span>
+            </template>
+            <span></span>
 
+            <!-- 二级菜单 -->
+            <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveNavState('/' + subItem.path)">
+              <template slot="title">
+                <!-- 图标 -->
+                <i class="el-icon-menu"></i>
+                <!-- 文本 -->
+                <span>{{subItem.authName}}</span>
+              </template>
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
+      <!-- 右侧内容主体 -->
+      <el-main>
+        <!-- 路由占位符 -->
+        <router-view></router-view>
+      </el-main>
+    </el-container>
+  </el-container>
+</template>
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
   data () {
-    return {};
+    return {
+      // 左侧菜单数据
+      menulist: [],
+      iconsObj: {
+        111: 'el-icon-user',
+        110: 'el-icon-s-home',
+        112: 'el-icon-setting',
+        113: 'el-icon-user'
+      },
+      // 是否折叠
+      isCollapse: false,
+      // 被激活的链接地址
+      activePath: ''
+    };
   },
   created () {
-    this.getToken();
+    this.getMenuList();
   },
   methods: {
-    async getToken () {
-        const { data: res } = await this.$http.get('/sysUser/getSysuser?username=admin&password=123456');
-        console.log(res);
-        if (res.code !== 200 || res == null) {
-            return this.$message.error('登录失败！');
-        }
-        this.$message.success('登录成功');
-        // 1. 将登录成功之后的 token，保存到客户端的 sessionStorage 中
-        //   1.1 项目中出了登录之外的其他API接口，必须在登录之后才能访问
-        //   1.2 token 只应在当前网站打开期间生效，所以将 token 保存在 sessionStorage 中
-        console.log(res.data.token);
-        window.sessionStorage.setItem('token', res.data.token);
-        // 2. 通过编程式导航跳转到后台主页，路由地址是 /home
-        this.$router.push('/home');
-        }
+    // 获取所有的菜单
+    async getMenuList () {
+      const { data: res } = await this.$http.get('/menu/menu');
+      console.log(res);
+      if (res.code !== 200) return this.$message.error(res.msg);
+      this.menulist = res.data;
+      console.log(res.data);
+    },
+      logout () {
+        window.sessionStorage.clear();
+        this.$router.push('/login');
+        this.$message.success('退出成功');
+      },
+      // 点击按钮，切换菜单的折叠与展开
+      toggleCollapse () {
+        this.isCollapse = !this.isCollapse;
+      },
+      // 保存链接的激活状态；点击菜单的时候对应的path存进sessionStorage，然后当home页面刚被刷新创建的时候，立即取出来赋值给左侧菜单进行激活；点击每个二级菜单的时候立即给activePath重新赋值
+      saveNavState (activePath) {
+          window.sessionStorage.setItem('activePath', activePath);
+          this.activePath = activePath;
+      }
     }
   };
 
@@ -57,6 +111,51 @@ export default {
     // justify-content: flex-end;
     margin-left: 710px;
     margin-top: 30px;
+}
+
+.home-container {
+  height: 100%;
+}
+.el-header {
+  background-color: #373d41;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 0;
+  align-items: center;
+  color: #fff;
+  font-size: 20px;
+  > div {
+    display: flex;
+    align-items: center;
+    span {
+      margin-left: 15px;
+    }
+  }
+}
+
+.el-aside {
+  background-color: #333744;
+  .el-menu {
+    border-right: none;
+  }
+}
+
+.el-main {
+  background-color: #eaedf1;
+}
+
+.iconfont {
+  margin-right: 10px;
+}
+
+.toggle-button {
+  background-color: #4a5064;
+  font-size: 10px;
+  line-height: 24px;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.2em;
+  cursor: pointer;
 }
 
 </style>

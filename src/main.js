@@ -3,6 +3,9 @@ import App from './App.vue';
 import router from './router';
 import './plugins/element.js';
 import axios from 'axios';
+import './assets/css/global.css';
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
 
 Vue.prototype.$http = axios;
 // 配置请求的跟路径
@@ -37,5 +40,6 @@ Vue.filter('dateFormat', function (originVal) {
 
 new Vue({
   router,
+  ViewUI,
   render: h => h(App)
 }).$mount('#app');
