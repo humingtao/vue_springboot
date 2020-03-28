@@ -17,7 +17,8 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('ruleForm')">立即注册</el-button>
-                    <el-button @click="resetForm('ruleForm')" style="margin-left: 100px">重置</el-button>
+                    <el-button @click="resetForm('ruleForm')" style="margin-left: 60px">重置</el-button>
+                    <router-link to="/login"><el-button style="margin-left: 60px">返回登录</el-button></router-link>
                 </el-form-item>
             </el-form>
         </div>

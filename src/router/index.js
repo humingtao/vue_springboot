@@ -6,6 +6,8 @@ import Welcome from '../components/Welcome.vue';
 import Analysis from '../components/Analysis.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
+import Useage from '../components/Useage.vue';
+import Perssion from '../components/Perssion.vue';
 // import HelloWorld from '../components/HelloWorld.vue';
 Vue.use(Router);
 
@@ -20,7 +22,9 @@ const routes = [
     children: [
       { path: '/page', component: Page },
       { path: '/welcome', component: Welcome },
-      { path: '/analysis', component: Analysis }
+      { path: '/analysis', component: Analysis },
+      { path: '/useage', component: Useage },
+      { path: '/perssion', component: Perssion }
     ]
   }
 ];

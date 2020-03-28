@@ -112,11 +112,11 @@ export default {
     data () {
     return {
         options: [{
-          value: '男',
-          label: '男'
+            value: '男',
+            label: '男'
         }, {
-          value: '女',
-          label: '女'
+            value: '女',
+            label: '女'
         }],
         // 查询参数对象
         queryInfo: {
@@ -299,7 +299,7 @@ export default {
 }
 
 .headContainer {
-    overflow-y: scroll;
+    // overflow-y: scroll;
     width: 100%;
     height: 100%;
 }

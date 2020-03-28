@@ -2,12 +2,13 @@ import Vue from 'vue';
 import
 {
     Button, Table, TableColumn, Pagination, Dialog, Form, FormItem, Input, DatePicker, Message, MessageBox,
-Container, Header, Main, Aside, Collapse, Menu, Submenu, MenuItem, Switch, Breadcrumb, BreadcrumbItem, Backtop, Card, Col, Row, Select, Option
+Container, Header, Main, Aside, Collapse, Menu, Submenu, MenuItem, Switch, Breadcrumb, BreadcrumbItem, Backtop, Card, Col, Row, Select, Option, Tag
 } from 'element-ui';
 import Slider from 'view-design';
 
 Vue.use(Slider);
 Vue.use(Select);
+Vue.use(Tag);
 Vue.use(Option);
 Vue.use(Button);
 Vue.use(Table);
