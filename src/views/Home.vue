@@ -58,9 +58,9 @@ export default {
       menulist: [],
       iconsObj: {
         111: 'el-icon-user',
-        110: 'el-icon-s-home',
+        110: 'el-icon-s-custom',
         112: 'el-icon-setting',
-        113: 'el-icon-user'
+        113: 'el-icon-pie-chart'
       },
       // 是否折叠
       isCollapse: false,
@@ -87,10 +87,8 @@ export default {
       this.username = user;
       // console.log(user);
       const { data: res } = await this.$http.get('/menu/menu');
-      console.log(res);
       if (res.code !== 200) return this.$message.error(res.msg);
       this.menulist = res.data;
-      console.log(res.data);
     },
       logout () {
         this.$store.commit('mutationsZero');

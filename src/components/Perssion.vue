@@ -53,7 +53,6 @@ export default {
             }
             this.rightsList = res.data.list;
             this.total = res.data.total;
-            console.log(this.rightsList);
         },
         handleSizeChange (newSize) {
             this.$store.commit('mutationsAddCount', 1);

@@ -19,7 +19,7 @@ axios.defaults.baseURL = 'http://127.0.0.1:8081';
 // request请求拦截器   通过use函数挂在一个回调函数   接口一个config，config就是请求对象，包含多个属性
 axios.interceptors.request.use(config => {
   NProgress.start();
-  console.log(config);
+  // console.log(config);
 // 为请求头对象，添加token验证的Authorization字段
   config.headers.token = window.sessionStorage.getItem('token');
   // 最后必须添加下面这一行

@@ -73,7 +73,6 @@ export default {
             this.$store.dispatch('actionsAddCount', 1);
             this.$refs[formName].validate(async (valid) => {
             if (valid) {
-                console.log(this.ruleForm);
                 const { data: res } = await this.$http.put('/sysUser/addSysuser?username=' + this.ruleForm.username + '&password=' + this.ruleForm.pass + '&info=' + this.ruleForm.info);
                 if (res.code !== 200 || res == null) {
                     return this.$message.error('注册失败！');
@@ -81,7 +80,7 @@ export default {
                     this.$message.success('注册成功');
                     this.$router.push('/login');
                 } else {
-                    console.log('error submit!!');
+                    // console.log('error submit!!');
                     return false;
                 }
             });

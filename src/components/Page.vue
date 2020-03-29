@@ -27,7 +27,7 @@
                 <el-table-column label="生日" prop="birthday" width="180px">
                     <template slot-scope="scope">
                     {{scope.row.birthday | dateFormat}}
-                </template>
+                    </template>
                 </el-table-column>
                 <el-table-column label="地址" prop="address"></el-table-column>
                 <el-table-column label="是否激活" width="100px">
@@ -175,7 +175,6 @@ export default {
     methods: {
         // 格式化日期
         formatDate (date) {
-            debugger;
             var d = new Date(date);
             var youWant = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
             return youWant;
@@ -188,7 +187,6 @@ export default {
             // 可以发起添加用户的网络请求
             // console.log(this.formatDate(this.addForm.birthday));
             const { data: res } = await this.$http.put('/user/addUser?username=' + this.addForm.username + '&birthday=' + this.formatDate(this.addForm.birthday) + '&sex=' + this.addForm.sex + '&address=' + this.addForm.address);
-            console.log(res);
             if (res.code !== 200) {
                 this.$message.error('添加用户失败！');
             } else {
@@ -228,7 +226,6 @@ export default {
         async editById (id) {
             this.$store.dispatch('actionsAddCount', 1);
             const { data: res } = await this.$http.get('/user/selectOne?id=' + id);
-            console.log(res);
             this.editForm = res.data;
             this.editDialogVisible = true;
         },
@@ -240,7 +237,6 @@ export default {
         addUserInfo () {
             this.$store.dispatch('actionsAddCount', 1);
             this.$refs.editFormRef.validate(async valid => {
-                console.log(valid);
                 if (!valid) {
                     return;
                 };
@@ -271,12 +267,10 @@ export default {
             });
             // 用户确认删除，返回为字符串confirm
             // 用户取消删除，返回为字符串cancel
-            console.log(confirmResult);
             if (confirmResult !== 'confirm') {
                 return this.$message.info('已取消删除');
             }
             const { data: res } = await this.$http.delete('user/deleteById?id=' + id);
-            console.log(res);
             if (res.code !== 200 && !res.data) {
                 this.$message.error('删除失败！');
             }
@@ -286,7 +280,6 @@ export default {
         // 监听 switch 开关状态的改变
         async userStateChanged (userinfo) {
             this.$store.commit('mutationsAddCount', 1);
-            console.log(userinfo);
             const { data: res } = await this.$http.put(
             `user/updateById?id=${userinfo.id}&state=${userinfo.isActive}`
             );
