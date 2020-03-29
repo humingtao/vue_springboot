@@ -182,6 +182,7 @@ export default {
         },
         // 点击按钮，添加新用户
         addUser () {
+            this.$store.commit('mutationsAddCount', 1);
             this.$refs.addFormRef.validate(async valid => {
             if (!valid) return;
             // 可以发起添加用户的网络请求
@@ -200,9 +201,11 @@ export default {
             });
         },
         addDialogClosed () {
+            this.$store.commit('mutationsAddCount', 1);
             this.$refs.addFormRef.resetFields();
         },
         async getUserList () {
+            // this.$store.dispatch('actionsAddCount', 1);
             const { data: res } = await this.$http.get('/user/getAll', {
                 params: this.queryInfo
             });
@@ -213,14 +216,17 @@ export default {
             this.total = res.data.total;
         },
         handleSizeChange (newSize) {
+            this.$store.dispatch('actionsAddCount', 1);
             this.queryInfo.pageSize = newSize;
             this.getUserList();
         },
         handleCurrentChange (newPage) {
+            this.$store.dispatch('actionsAddCount', 1);
             this.queryInfo.pageNo = newPage;
             this.getUserList();
         },
         async editById (id) {
+            this.$store.dispatch('actionsAddCount', 1);
             const { data: res } = await this.$http.get('/user/selectOne?id=' + id);
             console.log(res);
             this.editForm = res.data;
@@ -232,6 +238,7 @@ export default {
         },
         // 修改用户信息并提交
         addUserInfo () {
+            this.$store.dispatch('actionsAddCount', 1);
             this.$refs.editFormRef.validate(async valid => {
                 console.log(valid);
                 if (!valid) {
@@ -254,6 +261,7 @@ export default {
             });
         },
         async removeById (id) {
+            this.$store.dispatch('actionsAddCount', 1);
             const confirmResult = await this.$confirm('此操作将永久删除用户，是否继续？', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
@@ -277,6 +285,7 @@ export default {
         },
         // 监听 switch 开关状态的改变
         async userStateChanged (userinfo) {
+            this.$store.commit('mutationsAddCount', 1);
             console.log(userinfo);
             const { data: res } = await this.$http.put(
             `user/updateById?id=${userinfo.id}&state=${userinfo.isActive}`

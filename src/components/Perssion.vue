@@ -56,10 +56,12 @@ export default {
             console.log(this.rightsList);
         },
         handleSizeChange (newSize) {
+            this.$store.commit('mutationsAddCount', 1);
             this.queryInfo.pageSize = newSize;
             this.getRightList();
         },
         handleCurrentChange (newPage) {
+            this.$store.commit('mutationsAddCount', 1);
             this.queryInfo.pageNo = newPage;
             this.getRightList();
         }

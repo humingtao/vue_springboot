@@ -8,6 +8,7 @@ import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 import Useage from '../components/Useage.vue';
 import Perssion from '../components/Perssion.vue';
+import Info from '../components/Info.vue';
 // import HelloWorld from '../components/HelloWorld.vue';
 Vue.use(Router);
 
@@ -24,7 +25,8 @@ const routes = [
       { path: '/welcome', component: Welcome },
       { path: '/analysis', component: Analysis },
       { path: '/useage', component: Useage },
-      { path: '/perssion', component: Perssion }
+      { path: '/perssion', component: Perssion },
+      { path: '/info', component: Info }
     ]
   }
 ];

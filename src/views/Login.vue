@@ -54,9 +54,11 @@ export default {
     },
     methods: {
         signUp () {
+            this.$store.commit('mutationsAddCount', 1);
             this.$router.push('/register');
         },
         signIn () {
+            this.$store.commit('mutationsAddCount', 1);
             this.$refs.formInline.validate(async valid => {
                 if (!valid) return;
             console.log(this.formInline);

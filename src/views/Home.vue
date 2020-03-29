@@ -6,6 +6,7 @@
         <span>人员管理系统</span>
       </div>
       <span>当前登录账户：{{username}}</span>
+      <span>当前系统鼠标点击次数：{{$store.state.count}}</span>
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
     <!-- 页面主体区域 -->
@@ -84,16 +85,19 @@ export default {
       console.log(res.data);
     },
       logout () {
+        this.$store.commit('mutationsZero');
         window.sessionStorage.clear();
         this.$router.push('/login');
         this.$message.success('退出成功');
       },
       // 点击按钮，切换菜单的折叠与展开
       toggleCollapse () {
+        this.$store.dispatch('actionsAddCount', 1);
         this.isCollapse = !this.isCollapse;
       },
       // 保存链接的激活状态；点击菜单的时候对应的path存进sessionStorage，然后当home页面刚被刷新创建的时候，立即取出来赋值给左侧菜单进行激活；点击每个二级菜单的时候立即给activePath重新赋值
       saveNavState (activePath) {
+          this.$store.commit('mutationsAddCount', 1);
           window.sessionStorage.setItem('activePath', activePath);
           this.activePath = activePath;
       }

@@ -70,6 +70,7 @@ export default {
     },
     methods: {
         submitForm (formName) {
+            this.$store.dispatch('actionsAddCount', 1);
             this.$refs[formName].validate(async (valid) => {
             if (valid) {
                 console.log(this.ruleForm);
@@ -86,6 +87,7 @@ export default {
             });
         },
         resetForm (formName) {
+            this.$store.dispatch('actionsAddCount', 1);
             this.$refs[formName].resetFields();
         }
     }
